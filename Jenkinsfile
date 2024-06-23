@@ -7,9 +7,6 @@ pipeline {
     }
     environment {
         DOCKER_IMAGE = 'yuvalzigron/jenkins_images'
-        GITHUB_API_URL = 'https://api.github.com'
-        GITHUB_REPO = 'yuvalzigron/yuval-'
-        GITHUB_TOKEN = credentials('github-creds')
     }
     stages {
         stage('Build docker image') {
