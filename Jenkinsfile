@@ -5,7 +5,7 @@ pipeline {
         }
     }
     environment {
-        DOCKER_IMAGE_NAME = "your-dockerhub-username/your-image-name"
+        DOCKER_IMAGE_NAME = "yuvalzigron/jenkins_images/new_image"
         DOCKER_IMAGE_TAG = "latest"
     }
     stages {
