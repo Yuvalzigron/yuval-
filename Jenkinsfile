@@ -17,9 +17,6 @@ pipeline {
             }
         }
         stage('Push image to DockerHub') {
-            when {
-                branch 'main'
-            }
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-creds') {
