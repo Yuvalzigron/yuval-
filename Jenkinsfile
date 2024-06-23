@@ -5,25 +5,28 @@ pipeline {
         }
     }
     environment {
-        DOCKER_IMAGE_NAME = "yuvalzigron/jenkins_images/new_image"
-        DOCKER_IMAGE_TAG = "latest"
+        DOCKER_IMAGE = 'yuvalzigron/jenkins_images'
+        GITHUB_API_URL = 'https://api.github.com'
+        GITHUB_REPO = 'yuvalzigron/yuval-'
+        GITHUB_TOKEN = credentials('github-creds')
     }
     stages {
         stage('Build docker image') {
             steps {
                 script {
-                    // Build the Docker image
-                    docker.build("${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}")
+                    dockerImage = docker.build("${DOCKER_IMAGE}:latest", "--no-cache .")
                 }
             }
         }
         stage('Push image to DockerHub') {
+                stage('Push Docker image') {
+            when {
+                branch 'main'
+            }
             steps {
                 script {
-                    // Push the Docker image to DockerHub
-                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
-                        docker.image("${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}").push()
-                    }
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-creds') {
+                        dockerImage.push("latest")
                 }
             }
         }
