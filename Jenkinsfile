@@ -1,5 +1,9 @@
 pipeline {
-    agent any 
+    agent {
+        kubernetes {
+            yamlfile 'pod.yaml'
+        }
+    }
     environment {
         DOCKER_IMAGE_NAME = "your-dockerhub-username/your-image-name"
         DOCKER_IMAGE_TAG = "latest"
